@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">QRSCAN</string>
+    <string name="text_discover">Discover</string>
+    <string name="text_qrscan">QRScan</string>
+    <string name="text_next">Next</string>
+    <string name="text_skip">Skip</string>
+    <string name="title_first_tutorial">Scan QR Code &amp; Barcode</string>
+    <string name="content_first_tutorial">p</string>
+    <string name="title_second_tutorial">Create QR Code</string>
+    <string name="content_second_tutorial">p</string>
+    <string name="title_third_tutorial">Share to your friends</string>
+    <string name="content_third_tutorial">p</string>
+</resources>

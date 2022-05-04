@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="size_logo_splash">150dp</dimen>
+    <dimen name="margin_bottom_20dp">20dp</dimen>
+    <dimen name="margin_bottom_30dp">30dp</dimen>
+    <dimen name="text_size_25sp">25sp</dimen>
+    <dimen name="margin_tutorial_15dp">20dp</dimen>
+    <dimen name="text_size_20sp">20sp</dimen>
+    <dimen name="text_size_15dp">15sp</dimen>
+</resources>
