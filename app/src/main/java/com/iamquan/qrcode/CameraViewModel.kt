@@ -13,7 +13,6 @@ import java.util.concurrent.ExecutionException
 class CameraViewModel(app: Application) : AndroidViewModel(app) {
     private var cameraProviderLiveData: MutableLiveData<ProcessCameraProvider>? = null
 
-
     val processCameraProvider: LiveData<ProcessCameraProvider>
         get() {
             if (cameraProviderLiveData == null) {
@@ -35,9 +34,6 @@ class CameraViewModel(app: Application) : AndroidViewModel(app) {
             }
             return cameraProviderLiveData!!
         }
-
-
-
     companion object {
         private const val TAG = "CameraXViewModel"
     }

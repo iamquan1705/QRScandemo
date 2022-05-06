@@ -14,7 +14,11 @@
             android:id="@+id/prView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
+        <ImageView
+            android:id="@+id/imgImageAfter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
