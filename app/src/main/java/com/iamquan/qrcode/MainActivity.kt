@@ -1,5 +1,6 @@
 package com.iamquan.qrcode
 
+import QRCodeFragment
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -25,6 +26,8 @@ import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
 import com.iamquan.qrcode.databinding.ActivityMainBinding
+import com.iamquan.qrcode.model.UrlQR
+import com.iamquan.qrcode.model.WifiQR
 import java.io.IOException
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -41,6 +44,9 @@ class MainActivity : AppCompatActivity() {
     private var optionsBarcode: BarcodeScannerOptions? = null
     private var barcodeScanner: BarcodeScanner? = null
 
+
+    private var lenFacing: Int = CameraSelector.LENS_FACING_BACK
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +57,16 @@ class MainActivity : AppCompatActivity() {
         binding.imgLibrary.setOnClickListener {
             openGalleryForImage()
         }
+
+        binding.imgRotateCamera.setOnClickListener {
+            lenFacing = if (lenFacing == CameraSelector.LENS_FACING_BACK) {
+                CameraSelector.LENS_FACING_FRONT
+            } else {
+                CameraSelector.LENS_FACING_BACK
+            }
+            setupCamera()
+        }
+
     }
 
     private fun setupCamera() {
@@ -80,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                 it.setSurfaceProvider(binding.prView.surfaceProvider)
             }
         cameraSelector = CameraSelector.Builder()
-            .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+            .requireLensFacing(lenFacing)
             .build()
         imageCapture = ImageCapture.Builder()
             .build()
@@ -125,6 +141,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("ResourceType")
     private fun processImage(barcodeScanner: BarcodeScanner, inputImage: InputImage) {
         barcodeScanner.process(inputImage)
             .addOnSuccessListener { barcodes ->
@@ -140,13 +157,22 @@ class MainActivity : AppCompatActivity() {
                             val type = barcode.wifi!!.encryptionType
                             Log.d(
                                 "iamquan1705",
-                                "ssid: $ssid\npassword: $password\ntype: $type"
+                                rawValue.toString()
                             )
+                            var qr = WifiQR("string", ssid.toString(), password.toString(), type)
+                            supportFragmentManager
+                                .beginTransaction()
+                                .add(R.id.frFragment, QRCodeFragment(qr), "rageComicList")
+                                .commit()
                         }
                         Barcode.TYPE_URL -> {
                             val title = barcode.url!!.title
                             val url = barcode.url!!.url
                             Log.d("iamquan1705", "Title: $title\nURL: $url")
+                            val urlQR = UrlQR("string", title.toString(), url.toString())
+                            supportFragmentManager
+                                .beginTransaction()
+                                .add(R.id.frFragment, QRCodeFragment(urlQR), "rageComicList").commit()
                         }
                     }
                 }
